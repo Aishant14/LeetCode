@@ -2,15 +2,11 @@ class Solution {
 public:
     bool rotateString(string s, string goal) {
         if(s.length() != goal.length()) return false;
-        int n = s.length();
-        for(int i =1; i<=s.length(); i++){
-            string temp = s;
-            reverse(temp.begin(), temp.end());
-            reverse(temp.begin(), temp.begin() +(n-i));
-            reverse(temp.begin() +(n-i), temp.end());
-            if(temp == goal){
-                return true;
-            }
+        int n = goal.length();
+        string fstr = s+s;
+        for(int i =0; i<n; i++){
+            string temp  = fstr.substr(i,n);
+            if(temp == goal) return true;
         }
         return false;
     }
