@@ -14,13 +14,8 @@ class Solution {
         
         if(s[0] == '-'){ 
             sign = -1;
-            i = 1;
         }
-        else if (s[0] == '+'){
-            sign = 1;
-            i =0;
-        }
-        
+ 
         int MAX = INT_MAX, MIN = INT_MIN;
         i = (s[0] == '+' || s[0] == '-') ? 1 : 0;
 		
