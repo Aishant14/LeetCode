@@ -12,14 +12,20 @@ class Solution {
         int sign = 1;
         long ans = 0;
         
-        if(s[0] == '-') sign = -1;
+        if(s[0] == '-'){ 
+            sign = -1;
+            i = 1;
+        }
+        else if (s[0] == '+'){
+            sign = 1;
+            i =0;
+        }
         
         int MAX = INT_MAX, MIN = INT_MIN;
         i = (s[0] == '+' || s[0] == '-') ? 1 : 0;
 		
         while(i < s.length()) {
             if(s[0] == ' ' || !isdigit(s[i])) break;
-            
             ans = ans * 10 + s[i]-'0';
             if(sign == -1 && -1*ans < MIN) return MIN;
             if(sign == 1 && ans > MAX) return MAX;
