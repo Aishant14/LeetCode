@@ -5,11 +5,11 @@ class Solution {
 
         int i=0;
          while(i<s.size() && s[i]== ' ') {
-             i++;
+            i++;
          }     
-        s = s.substr(i); //i ---> last of string
+        s = s.substr(i);
         
-        int sign = +1;
+        int sign = 1;
         long ans = 0;
         
         if(s[0] == '-') sign = -1;
