@@ -6,11 +6,10 @@ public:
             return 1;
         } 
         if(dig%2 ==0){
-            long long half = myPow(x,dig/2)%MOD;
-            return half*half%MOD;
+            return myPow((x*x)%MOD,dig/2)%MOD;
         }
         else{
-            return( x%MOD)*myPow(x,dig-1)%MOD;
+            return x*myPow(x,dig-1)%MOD;
         }
     }
     int countGoodNumbers(long long n) {
