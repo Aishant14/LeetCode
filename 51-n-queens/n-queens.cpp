@@ -2,41 +2,42 @@ class Solution {
 public:
     int N;
     vector<vector<string>> result;
-    unordered_set<int> pcol;
+    unordered_set<int> cols;
     unordered_set<int> dig;
-    unordered_set<int> antidig;
+    unordered_set<int> Antidig;
 
     void solve(vector<string>& board,int row){
-        if(row >=  N){
+        if(row >= N){
             result.push_back(board);
             return;
         }
-        for(int col = 0; col <N;col++){
+        for(int col = 0; col <N; col++){
             int digConst = row+col;
             int AntidigConst = row-col;
-            if(pcol.find(col) != pcol.end() || dig.find(digConst) != dig.end() || 
-                antidig.find(AntidigConst) != antidig.end())
+            if(cols.find(col) != cols.end() || dig.find(digConst) != dig.end()
+               || Antidig.find(AntidigConst) != Antidig.end())
             {
-                continue;  //if the col us alreay present ot dig or antidig
+                continue;
             }
             board[row][col] = 'Q';
-            pcol.insert(col);
+            cols.insert(col);
             dig.insert(digConst);
-            antidig.insert(AntidigConst);
-
+            Antidig.insert(AntidigConst);
             solve(board,row+1);
+
+            //undo
             board[row][col] = '.';
-            pcol.erase(col);
+            cols.erase(col);
             dig.erase(digConst);
-            antidig.erase(AntidigConst);    
+            Antidig.erase(AntidigConst);
+
         }
-        
     }
+
     vector<vector<string>> solveNQueens(int n) {
-        N= n;
-        vector<string> board(n,string(n,'.')); //board[i] → gives you the i-th row (a string) // 
-        solve(board,0);    //board[i][j] → gives you the j-th character inside that string, i.e., the column.
+        vector<string> board(n,string(n,'.'));
+        N = n;
+        solve(board,0);
         return result;
-        
     }
 };
