@@ -1,20 +1,18 @@
 class Solution {
 public:
-    int fact(int temp){
-         int val = 1; 
-         while(temp > 0){
-             val *= temp%10;
-             temp /= 10;
-        }
-        return val;
-    }
-    int smallestNumber(int n, int t) {
-        int res = INT_MIN;
+    int smallestNumber(int n, int t){
         for(int i = n; i<= 100; i++){
-            int temp2 = fact(i);
-            if(temp2 % t == 0){
-                return i;
+            string str=to_string(i);
+            int pro=0;
+            if(str.length()>=2){
+            int f=str[0]-'0';
+            int s=str[1]-'0';
+            pro=f*s;
             }
+            else if(str.length()==1){
+                pro=str[0]-'0';
+            }
+            if(pro%t==0) return i;
         }
         return 0;
     }
