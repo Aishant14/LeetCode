@@ -6,18 +6,17 @@ public:
             if (ch == '(' || ch == '[' || ch == '{') {
                 st.push(ch);
             } else {
-                //if(st.empty()) return false;
-                if(st.empty()){
+                if(st.empty()) return false;
+                char temp = st.top();
+                if ((temp == '(' && ch == ')') ||
+                    (temp == '[' && ch == ']') ||
+                    (temp == '{' && ch == '}')){
+
+                    st.pop();
+                } 
+                else{
                     return false;
                 }
-                char temp=st.top();
-                st.pop();
-                if ((temp == '(' && ch != ')') ||
-                    (temp == '[' && ch!= ']') ||
-                    (temp == '{' && ch != '}')){
-
-                    return false;
-                } 
             }
         }
         if(st.empty()) return true;
