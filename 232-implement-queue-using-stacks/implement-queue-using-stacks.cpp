@@ -1,41 +1,44 @@
 class MyQueue {
 public:
-    stack<int> prime;
-    stack <int> sec;
+    stack <int> inp;
+    stack <int> op;
+    int peek1 = INT_MIN;
     MyQueue() {
         
     }
     
     void push(int x) {
-        if(prime.empty()){
-            prime.push(x);
+        if(inp.empty()){
+            peek1 = x;
         }
-        else{
-            while(!prime.empty()){
-                int temp = prime.top();
-                sec.push(temp);
-                prime.pop();
-            }
-            prime.push(x);
-            while(!sec.empty()){
-                prime.push(sec.top());
-                sec.pop();
-            }
-        }
+           inp.push(x);
     }
     
     int pop() {
-        int res = prime.top();
-        prime.pop();
-        return res;
+        if(op.empty()){
+            while(!inp.empty()){
+                op.push(inp.top());
+                inp.pop();
+            }
+        }
+        int temp = op.top();
+            op.pop();
+            return temp;
     }
     
-    int peek() {
-        return prime.top();
+    int peek(){
+        if(op.empty()){
+            return peek1;
+        }
+        else{
+            return op.top();
+        }
     }
     
     bool empty() {
-        if(prime.empty()) return true;
+        if(op.empty() && inp.empty()){
+            return true;
+        }
         else return false;
     }
 };
