@@ -1,27 +1,24 @@
 class Solution {
 public:
     int trap(vector<int>& height) {
-        int n = height.size();
-        vector<int> lmax(n);
-        vector<int> rmax(n);
-        int res =0;
+        stack <int> st;
+        int water = 0;
+        if(height.size() <= 2) return 0;
 
-        int currleftmax = height[0];
-        for(int i =0; i<n; i++){
-           currleftmax = max(height[i],currleftmax);
-            lmax[i] = currleftmax;
+        for(int i =0; i<height.size(); i++){
+            while(!st.empty() && height[i] > height[st.top()]){
+                int curridx = st.top();
+                st.pop();
+                if(st.empty()){
+                    break;
+                }
+                int leftidx = st.top();
+                int width = i - leftidx -1;
+                int boundheight = min(height[leftidx],height[i]) - height[curridx] ;
+                water += boundheight*width;
+            }
+            st.push(i);
         }
-
-        int currightmax = height[n-1];
-        for(int i = n-1; i>=0; i--){
-           currightmax = max(height[i],currightmax);
-           rmax[i] = currightmax;
-            
-        }
-        for(int i =0; i<n; i++){
-            res += min(lmax[i],rmax[i]) -height[i];
-        }
-        return res;
-
+        return water;
     }
 };
