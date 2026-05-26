@@ -11,21 +11,18 @@
  */
 class Solution {
 public:
-    TreeNode* createBST(vector<int>& preorder, int start , int end){
-        if(start > end){
+    TreeNode* createBST(vector<int>& preorder,int maxxer,int& curr){
+        if( curr >= preorder.size() || preorder[curr] > maxxer){
             return NULL;
         }
-        TreeNode* root = new TreeNode(preorder[start]);
-        int mid = start+1;
-        while(mid <= end && preorder[mid] < root->val){
-            mid++;
-        }
-        root->left = createBST(preorder,start+1,mid-1);
-        root->right = createBST(preorder,mid,end);
+        TreeNode* root  = new TreeNode(preorder[curr]);
+        curr++;
+        root->left = createBST(preorder,root->val,curr);
+        root->right = createBST(preorder,maxxer,curr);
         return root;
     }
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        return createBST(preorder,0,preorder.size()-1);
-       
+        int curr = 0;
+        return createBST(preorder,INT_MAX,curr);
     }
 };
